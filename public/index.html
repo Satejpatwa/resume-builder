@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Builder</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- LEFT COLUMN: INPUT FORM -->
+        <div class="input-section">
+            <header>
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <h1>Resume Builder</h1>
+                    <span id="save-status" style="font-size:0.8em; color:green;"></span>
+                </div>
+                <p>Create, customize, and refine your resume.</p>
+                <div style="margin-top: 10px; display: flex; gap: 10px;">
+                    <button type="button" id="exportJsonBtn" class="add-btn">💾 Save / Export JSON</button>
+                    <label class="add-btn" style="text-align:center; cursor:pointer;">
+                        📤 Load JSON
+                        <input type="file" id="importJsonInput" accept=".json" style="display:none;">
+                    </label>
+                </div>
+            </header>
+
+            <form id="resumeForm">
+                <!-- Theme Customization (Mobile/Small Screen - usually hidden or top, but let's put it here for visibility) -->
+                <section class="form-group"
+                    style="background: #f8fafc; padding: 10px; border-radius: 6px; border: 1px solid #e2e8f0;">
+                    <h2 style="border:none; margin-bottom: 10px;">Design & Layout</h2>
+                    <div style="display: flex; gap: 15px; align-items: center;">
+                        <label style="font-size: 0.9em;">
+                            Accent Color:
+                            <input type="color" id="accentColor" value="#000000"
+                                style="width: 40px; height: 30px; padding: 0; border: none; cursor: pointer;">
+                        </label>
+                        <label style="font-size: 0.9em;">
+                            Font Size:
+                            <input type="range" id="fontSize" min="9" max="14" step="0.5" value="10.5">
+                        </label>
+                    </div>
+                </section>
+                <section class="form-group">
+                    <h2>Personal Info</h2>
+                    <input type="text" name="fullName" placeholder="Full Name" required>
+                    <input type="email" name="email" placeholder="Email" required>
+                    <input type="tel" name="phone" placeholder="Phone">
+                    <input type="text" name="location" placeholder="City, Country">
+                    <input type="url" name="linkedin" placeholder="LinkedIn URL">
+                    <input type="url" name="github" placeholder="GitHub URL">
+                </section>
+
+                <section class="form-group">
+                    <h2>Professional Summary</h2>
+                    <textarea name="summary" placeholder="Write a brief professional summary..." rows="4"></textarea>
+                </section>
+
+                <section class="form-group">
+                    <h2>Skills</h2>
+                    <textarea name="skills"
+                        placeholder="List skills here.&#10;• Use Enter for new lines&#10;• Use &quot;text&quot; for bold headers"
+                        rows="5"></textarea>
+                </section>
+
+                <section class="form-group" id="education-group">
+                    <h2>Education</h2>
+                    <div class="entry education-entry">
+                        <input type="text" placeholder="Degree (e.g. BS Computer Science)" class="edu-degree">
+                        <input type="text" placeholder="Institution" class="edu-school">
+                        <input type="text" placeholder="Year" class="edu-year">
+                    </div>
+                    <button type="button" class="add-btn" onclick="addEducation()">+ Add Education</button>
+                </section>
+
+                <section class="form-group" id="experience-group">
+                    <h2>Experience</h2>
+                    <div class="entry experience-entry">
+                        <input type="text" placeholder="Job Title" class="exp-title">
+                        <input type="text" placeholder="Company" class="exp-company">
+                        <input type="text" placeholder="Duration (e.g. 2020 - Present)" class="exp-duration">
+                        <textarea placeholder="Responsibilities (AI will optimize this)" class="exp-desc"
+                            rows="3"></textarea>
+                    </div>
+                    <button type="button" class="add-btn" onclick="addExperience()">+ Add Experience</button>
+                </section>
+
+                <section class="form-group" id="projects-group">
+                    <h2>Projects</h2>
+                    <div class="entry project-entry">
+                        <input type="text" placeholder="Project Name" class="proj-name">
+                        <input type="text" placeholder="Tech Stack" class="proj-stack">
+                        <textarea placeholder="Description" class="proj-desc" rows="2"></textarea>
+                    </div>
+                    <button type="button" class="add-btn" onclick="addProject()">+ Add Project</button>
+                </section>
+
+                <div class="form-actions">
+                    <div class="text-center" style="color: #666; font-size: 0.9em;">
+                        Changes appear in real-time
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- RIGHT COLUMN: PREVIEW -->
+        <div class="preview-section">
+            <div class="toolbar">
+                <button onclick="downloadPDF()" class="download-btn">Download PDF</button>
+            </div>
+
+            <div id="resume-preview" class="resume-paper" contenteditable="true" spellcheck="false">
+                <!-- Resume content will be injected here -->
+                <div class="placeholder-content">
+                    <h3>Your Resume Preview</h3>
+                    <p>Start typing on the left to build.</p>
+                    <p style="font-size: 0.8em; margin-top: 10px; color: #2563eb;">✨ Pro Tip: You can also click
+                        <b>directly here</b> to edit text!
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

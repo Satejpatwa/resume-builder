@@ -1,0 +1,298 @@
+:root {
+    --primary-color: #2563eb;
+    --text-dark: #1f2937;
+    --text-light: #6b7280;
+    --bg-light: #f3f4f6;
+    --white: #ffffff;
+    --border: #e5e7eb;
+    --font-main: 'Inter', sans-serif;
+
+    /* Configurable Resume Theme */
+    --resume-accent: #000000;
+    --resume-base-scale: 1;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-main);
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+    height: 100vh;
+    overflow: hidden;
+    /* Main scroll controlled by columns */
+}
+
+.app-container {
+    display: flex;
+    height: 100vh;
+}
+
+/* LEFT COLUMN: FORM */
+.input-section {
+    width: 40%;
+    min-width: 350px;
+    background: var(--white);
+    border-right: 1px solid var(--border);
+    padding: 2rem;
+    overflow-y: auto;
+}
+
+header {
+    margin-bottom: 2rem;
+}
+
+header h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-dark);
+}
+
+header p {
+    font-size: 0.875rem;
+    color: var(--text-light);
+}
+
+.form-group {
+    margin-bottom: 2rem;
+}
+
+.form-group h2 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--text-dark);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-family: var(--font-main);
+    font-size: 0.875rem;
+    transition: box-shadow 0.2s;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.add-btn {
+    background: none;
+    border: 1px dashed var(--text-light);
+    color: var(--text-light);
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.875rem;
+}
+
+.add-btn:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.generate-btn {
+    width: 100%;
+    padding: 1rem;
+    background-color: var(--primary-color);
+    color: var(--white);
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.generate-btn:hover {
+    background-color: #1d4ed8;
+}
+
+/* RIGHT COLUMN: PREVIEW */
+.preview-section {
+    width: 60%;
+    background-color: #525659;
+    /* PDF viewer bg feel */
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+}
+
+.toolbar {
+    width: 100%;
+    max-width: 210mm;
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 1rem;
+}
+
+.download-btn {
+    padding: 0.5rem 1rem;
+    background-color: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.resume-paper {
+    background: var(--white);
+    width: 210mm;
+    /* A4 width */
+    min-height: 297mm;
+    /* A4 height */
+    padding: 40px 50px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    color: #000;
+    font-size: 10.5pt;
+    line-height: 1.4;
+    transition: font-size 0.2s;
+}
+
+/* Interaction feedback for Direct Editing */
+.resume-paper[contenteditable="true"]:focus {
+    outline: 2px dashed var(--primary-color);
+    outline-offset: 4px;
+}
+
+.placeholder-content {
+    text-align: center;
+    color: var(--text-light);
+    padding-top: 50%;
+}
+
+/* RESUME CONTENT STYLES */
+#resume-output h1 {
+    font-size: 24pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    color: #000;
+}
+
+.contact-info {
+    font-size: 10pt;
+    color: #444;
+    margin-bottom: 16px;
+}
+
+.section-head {
+    font-size: 12pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    border-bottom: 2px solid #000;
+    margin-top: 16px;
+    margin-bottom: 8px;
+    padding-bottom: 2px;
+}
+
+.job-entry,
+.project-entry-preview {
+    margin-bottom: 12px;
+}
+
+.entry-header {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 700;
+    font-size: 11pt;
+}
+
+.sub-header {
+    display: flex;
+    justify-content: space-between;
+    font-style: italic;
+    font-size: 10pt;
+    margin-bottom: 4px;
+}
+
+ul {
+    padding-left: 18px;
+    margin: 4px 0;
+}
+
+li {
+    margin-bottom: 2px;
+}
+
+/* PRINT STYLES */
+@media print {
+    body {
+        height: auto;
+        overflow: visible;
+        background: white;
+    }
+
+    .input-section,
+    .toolbar,
+    .add-btn,
+    .generate-btn {
+        display: none !important;
+    }
+
+    .app-container {
+        display: block;
+        height: auto;
+    }
+
+    .preview-section {
+        width: 100%;
+        padding: 0;
+        margin: 0;
+        background: white;
+        overflow: visible;
+        display: block;
+    }
+
+    .resume-paper {
+        width: 100%;
+        min-height: auto;
+        box-shadow: none;
+        padding: 40px 50px !important;
+        margin: 0;
+    }
+
+    @page {
+        margin: 0;
+        size: auto;
+    }
+}
+
+/* Clickable Resume Links */
+.resume-link {
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 1px dotted transparent;
+}
+
+.resume-link:hover,
+.resume-link:focus {
+    color: var(--primary-color);
+    border-bottom-color: var(--primary-color);
+}
+
+@media print {
+    .resume-link {
+        color: #000;
+        border: none;
+        text-decoration: none;
+    }
+}
